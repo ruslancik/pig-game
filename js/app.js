@@ -72,7 +72,8 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
 
    // next player
     nextPalyer();
-    }
+    
+}
 
 })
 
