@@ -40,10 +40,17 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
     // Update the round score if the dice number is not the 1
 
     if (dice > 1) {
-        roundScore= roundScore + dice;
-        document.getElementById('score-0').textContent = roundScore;
+        roundScore += dice;
+        document.getElementById('current-' + activePlayer).textContent = roundScore;
     } else {
-        document.getElementById('score-0').textContent = 0;
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        roundScore = 0;
+        document.getElementById('current-0').textContent = 0;
+        document.getElementById('current-1').textContent = 0;
+
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+
         diceDom.style.display='none';
     }
 
