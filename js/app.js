@@ -16,6 +16,8 @@ roundScore = 0;
 activePlayer = 0;
 winnerScore = 10;
 gamePlaying =true;
+
+var lastDice;
  
 init();
 
@@ -36,14 +38,23 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
     
         // Update the round score if the dice number is not the 1
     
-        if (dice > 1) {
+        if(dice === 6 && lastDice === 6) {
+            // if two dice also be 6 then player will lose all his entire score and turn go to next player
+            score[activePlayer] = 0;
+            document.querySelector('#score-' + activePlayer).textContent = 0;
+            nextPalyer();
+
+        } else if (dice > 1) {
+            // Game continue
             roundScore += dice;
             document.getElementById('current-' + activePlayer).textContent = roundScore;
         } else {
-    
+            // if player rolls 1 cureent score deleted and roll turns nextplayer
             nextPalyer();
     
         }
+
+        lastDice = dice;
     }
 
 
