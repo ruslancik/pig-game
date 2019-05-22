@@ -9,44 +9,50 @@ GAME RULES:
 
 */
 
-var score, roundScore, activePlayer,winnerScore;
+var score, roundScore, activePlayer,winnerScore, gamePlaying;
 
 score = [0,0];
 roundScore = 0;
 activePlayer = 0;
 winnerScore = 10;
+gamePlaying =true;
  
 init();
 
 
 document.querySelector('.btn-roll').addEventListener('click', function(){
     // Random number
+    if(gamePlaying){
 
-    var dice = Math.floor(Math.random() * 6 + 1);
+        var dice = Math.floor(Math.random() * 6 + 1);
 
-    // change image     
+        // change image     
+        
+        var diceDom = document.querySelector('.dice');
     
-    var diceDom = document.querySelector('.dice');
-
-    diceDom.style.display='block';
-
-    diceDom.src = 'img/dice-' + dice + '.png';
-
-    // Update the round score if the dice number is not the 1
-
-    if (dice > 1) {
-        roundScore += dice;
-        document.getElementById('current-' + activePlayer).textContent = roundScore;
-    } else {
-
-        nextPalyer();
-
+        diceDom.style.display='block';
+    
+        diceDom.src = 'img/dice-' + dice + '.png';
+    
+        // Update the round score if the dice number is not the 1
+    
+        if (dice > 1) {
+            roundScore += dice;
+            document.getElementById('current-' + activePlayer).textContent = roundScore;
+        } else {
+    
+            nextPalyer();
+    
+        }
     }
+
 
 })
 
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
+    if(gamePlaying) {
+
     // add current score to GLobal score
     score[activePlayer] += roundScore;
     // Changing UI
@@ -61,13 +67,17 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
         document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
         // Remove active class when there is a winner
         document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
-              
+        //if paleyers score reach winnerscore gamePlaying will 'false' so btns doesn't work anymore except New Game btn
+        gamePlaying = false;
     } else {
 
    // next player
     nextPalyer();
     
 }
+
+    }
+
 
 })
 
